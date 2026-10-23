@@ -10,33 +10,271 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CustomerRouteImport } from './routes/customer'
+import { Route as ManagerRouteImport } from './routes/manager'
+import { Route as StaffRouteImport } from './routes/staff'
+import { Route as AuthCustomerRouteImport } from './routes/auth/customer'
+import { Route as AuthManagerRouteImport } from './routes/auth/manager'
+import { Route as AuthStaffRouteImport } from './routes/auth/staff'
+import { Route as CustomerDashboardRouteImport } from './routes/customer/dashboard'
+import { Route as CustomerHomeRouteImport } from './routes/customer/home'
+import { Route as CustomerRestockRouteImport } from './routes/customer/restock'
+import { Route as ManagerDashboardRouteImport } from './routes/manager/dashboard'
+import { Route as ManagerFeedbackRouteImport } from './routes/manager/feedback'
+import { Route as ManagerNgoRouteImport } from './routes/manager/ngo'
+import { Route as ManagerOffersRouteImport } from './routes/manager/offers'
+import { Route as ManagerRestockRouteImport } from './routes/manager/restock'
+import { Route as ManagerWholesalersRouteImport } from './routes/manager/wholesalers'
+import { Route as StaffDashboardRouteImport } from './routes/staff/dashboard'
+import { Route as StaffHomeRouteImport } from './routes/staff/home'
+import { Route as StaffRestockRouteImport } from './routes/staff/restock'
+import { Route as StaffScanRouteImport } from './routes/staff/scan'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomerRoute = CustomerRouteImport.update({
+  id: '/customer',
+  path: '/customer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManagerRoute = ManagerRouteImport.update({
+  id: '/manager',
+  path: '/manager',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCustomerRoute = AuthCustomerRouteImport.update({
+  id: '/auth/customer',
+  path: '/auth/customer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthManagerRoute = AuthManagerRouteImport.update({
+  id: '/auth/manager',
+  path: '/auth/manager',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthStaffRoute = AuthStaffRouteImport.update({
+  id: '/auth/staff',
+  path: '/auth/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerDashboardRoute = CustomerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerHomeRoute = CustomerHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const CustomerRestockRoute = CustomerRestockRouteImport.update({
+  id: '/restock',
+  path: '/restock',
+  getParentRoute: () => CustomerRoute,
+} as any)
+const ManagerDashboardRoute = ManagerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerFeedbackRoute = ManagerFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerNgoRoute = ManagerNgoRouteImport.update({
+  id: '/ngo',
+  path: '/ngo',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerOffersRoute = ManagerOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerRestockRoute = ManagerRestockRouteImport.update({
+  id: '/restock',
+  path: '/restock',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const ManagerWholesalersRoute = ManagerWholesalersRouteImport.update({
+  id: '/wholesalers',
+  path: '/wholesalers',
+  getParentRoute: () => ManagerRoute,
+} as any)
+const StaffDashboardRoute = StaffDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffHomeRoute = StaffHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffRestockRoute = StaffRestockRouteImport.update({
+  id: '/restock',
+  path: '/restock',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffScanRoute = StaffScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => StaffRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/manager': typeof ManagerRouteWithChildren
+  '/staff': typeof StaffRouteWithChildren
+  '/auth/customer': typeof AuthCustomerRoute
+  '/auth/manager': typeof AuthManagerRoute
+  '/auth/staff': typeof AuthStaffRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/home': typeof CustomerHomeRoute
+  '/customer/restock': typeof CustomerRestockRoute
+  '/manager/dashboard': typeof ManagerDashboardRoute
+  '/manager/feedback': typeof ManagerFeedbackRoute
+  '/manager/ngo': typeof ManagerNgoRoute
+  '/manager/offers': typeof ManagerOffersRoute
+  '/manager/restock': typeof ManagerRestockRoute
+  '/manager/wholesalers': typeof ManagerWholesalersRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/home': typeof StaffHomeRoute
+  '/staff/restock': typeof StaffRestockRoute
+  '/staff/scan': typeof StaffScanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/manager': typeof ManagerRouteWithChildren
+  '/staff': typeof StaffRouteWithChildren
+  '/auth/customer': typeof AuthCustomerRoute
+  '/auth/manager': typeof AuthManagerRoute
+  '/auth/staff': typeof AuthStaffRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/home': typeof CustomerHomeRoute
+  '/customer/restock': typeof CustomerRestockRoute
+  '/manager/dashboard': typeof ManagerDashboardRoute
+  '/manager/feedback': typeof ManagerFeedbackRoute
+  '/manager/ngo': typeof ManagerNgoRoute
+  '/manager/offers': typeof ManagerOffersRoute
+  '/manager/restock': typeof ManagerRestockRoute
+  '/manager/wholesalers': typeof ManagerWholesalersRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/home': typeof StaffHomeRoute
+  '/staff/restock': typeof StaffRestockRoute
+  '/staff/scan': typeof StaffScanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/customer': typeof CustomerRouteWithChildren
+  '/manager': typeof ManagerRouteWithChildren
+  '/staff': typeof StaffRouteWithChildren
+  '/auth/customer': typeof AuthCustomerRoute
+  '/auth/manager': typeof AuthManagerRoute
+  '/auth/staff': typeof AuthStaffRoute
+  '/customer/dashboard': typeof CustomerDashboardRoute
+  '/customer/home': typeof CustomerHomeRoute
+  '/customer/restock': typeof CustomerRestockRoute
+  '/manager/dashboard': typeof ManagerDashboardRoute
+  '/manager/feedback': typeof ManagerFeedbackRoute
+  '/manager/ngo': typeof ManagerNgoRoute
+  '/manager/offers': typeof ManagerOffersRoute
+  '/manager/restock': typeof ManagerRestockRoute
+  '/manager/wholesalers': typeof ManagerWholesalersRoute
+  '/staff/dashboard': typeof StaffDashboardRoute
+  '/staff/home': typeof StaffHomeRoute
+  '/staff/restock': typeof StaffRestockRoute
+  '/staff/scan': typeof StaffScanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/auth/customer'
+    | '/auth/manager'
+    | '/auth/staff'
+    | '/customer/dashboard'
+    | '/customer/home'
+    | '/customer/restock'
+    | '/manager/dashboard'
+    | '/manager/feedback'
+    | '/manager/ngo'
+    | '/manager/offers'
+    | '/manager/restock'
+    | '/manager/wholesalers'
+    | '/staff/dashboard'
+    | '/staff/home'
+    | '/staff/restock'
+    | '/staff/scan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/auth/customer'
+    | '/auth/manager'
+    | '/auth/staff'
+    | '/customer/dashboard'
+    | '/customer/home'
+    | '/customer/restock'
+    | '/manager/dashboard'
+    | '/manager/feedback'
+    | '/manager/ngo'
+    | '/manager/offers'
+    | '/manager/restock'
+    | '/manager/wholesalers'
+    | '/staff/dashboard'
+    | '/staff/home'
+    | '/staff/restock'
+    | '/staff/scan'
+  id:
+    | '__root__'
+    | '/'
+    | '/customer'
+    | '/manager'
+    | '/staff'
+    | '/auth/customer'
+    | '/auth/manager'
+    | '/auth/staff'
+    | '/customer/dashboard'
+    | '/customer/home'
+    | '/customer/restock'
+    | '/manager/dashboard'
+    | '/manager/feedback'
+    | '/manager/ngo'
+    | '/manager/offers'
+    | '/manager/restock'
+    | '/manager/wholesalers'
+    | '/staff/dashboard'
+    | '/staff/home'
+    | '/staff/restock'
+    | '/staff/scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CustomerRoute: typeof CustomerRouteWithChildren
+  ManagerRoute: typeof ManagerRouteWithChildren
+  StaffRoute: typeof StaffRouteWithChildren
+  AuthCustomerRoute: typeof AuthCustomerRoute
+  AuthManagerRoute: typeof AuthManagerRoute
+  AuthStaffRoute: typeof AuthStaffRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +286,203 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customer': {
+      id: '/customer'
+      path: '/customer'
+      fullPath: '/customer'
+      preLoaderRoute: typeof CustomerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manager': {
+      id: '/manager'
+      path: '/manager'
+      fullPath: '/manager'
+      preLoaderRoute: typeof ManagerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/customer': {
+      id: '/auth/customer'
+      path: '/auth/customer'
+      fullPath: '/auth/customer'
+      preLoaderRoute: typeof AuthCustomerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/manager': {
+      id: '/auth/manager'
+      path: '/auth/manager'
+      fullPath: '/auth/manager'
+      preLoaderRoute: typeof AuthManagerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/staff': {
+      id: '/auth/staff'
+      path: '/auth/staff'
+      fullPath: '/auth/staff'
+      preLoaderRoute: typeof AuthStaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer/dashboard': {
+      id: '/customer/dashboard'
+      path: '/dashboard'
+      fullPath: '/customer/dashboard'
+      preLoaderRoute: typeof CustomerDashboardRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/home': {
+      id: '/customer/home'
+      path: '/home'
+      fullPath: '/customer/home'
+      preLoaderRoute: typeof CustomerHomeRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/customer/restock': {
+      id: '/customer/restock'
+      path: '/restock'
+      fullPath: '/customer/restock'
+      preLoaderRoute: typeof CustomerRestockRouteImport
+      parentRoute: typeof CustomerRoute
+    }
+    '/manager/dashboard': {
+      id: '/manager/dashboard'
+      path: '/dashboard'
+      fullPath: '/manager/dashboard'
+      preLoaderRoute: typeof ManagerDashboardRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/feedback': {
+      id: '/manager/feedback'
+      path: '/feedback'
+      fullPath: '/manager/feedback'
+      preLoaderRoute: typeof ManagerFeedbackRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/ngo': {
+      id: '/manager/ngo'
+      path: '/ngo'
+      fullPath: '/manager/ngo'
+      preLoaderRoute: typeof ManagerNgoRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/offers': {
+      id: '/manager/offers'
+      path: '/offers'
+      fullPath: '/manager/offers'
+      preLoaderRoute: typeof ManagerOffersRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/restock': {
+      id: '/manager/restock'
+      path: '/restock'
+      fullPath: '/manager/restock'
+      preLoaderRoute: typeof ManagerRestockRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/manager/wholesalers': {
+      id: '/manager/wholesalers'
+      path: '/wholesalers'
+      fullPath: '/manager/wholesalers'
+      preLoaderRoute: typeof ManagerWholesalersRouteImport
+      parentRoute: typeof ManagerRoute
+    }
+    '/staff/dashboard': {
+      id: '/staff/dashboard'
+      path: '/dashboard'
+      fullPath: '/staff/dashboard'
+      preLoaderRoute: typeof StaffDashboardRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/home': {
+      id: '/staff/home'
+      path: '/home'
+      fullPath: '/staff/home'
+      preLoaderRoute: typeof StaffHomeRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/restock': {
+      id: '/staff/restock'
+      path: '/restock'
+      fullPath: '/staff/restock'
+      preLoaderRoute: typeof StaffRestockRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/staff/scan': {
+      id: '/staff/scan'
+      path: '/scan'
+      fullPath: '/staff/scan'
+      preLoaderRoute: typeof StaffScanRouteImport
+      parentRoute: typeof StaffRoute
+    }
   }
 }
 
+interface CustomerRouteChildren {
+  CustomerDashboardRoute: typeof CustomerDashboardRoute
+  CustomerHomeRoute: typeof CustomerHomeRoute
+  CustomerRestockRoute: typeof CustomerRestockRoute
+}
+
+const CustomerRouteChildren: CustomerRouteChildren = {
+  CustomerDashboardRoute: CustomerDashboardRoute,
+  CustomerHomeRoute: CustomerHomeRoute,
+  CustomerRestockRoute: CustomerRestockRoute,
+}
+
+const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
+  CustomerRouteChildren,
+)
+
+interface ManagerRouteChildren {
+  ManagerDashboardRoute: typeof ManagerDashboardRoute
+  ManagerFeedbackRoute: typeof ManagerFeedbackRoute
+  ManagerNgoRoute: typeof ManagerNgoRoute
+  ManagerOffersRoute: typeof ManagerOffersRoute
+  ManagerRestockRoute: typeof ManagerRestockRoute
+  ManagerWholesalersRoute: typeof ManagerWholesalersRoute
+}
+
+const ManagerRouteChildren: ManagerRouteChildren = {
+  ManagerDashboardRoute: ManagerDashboardRoute,
+  ManagerFeedbackRoute: ManagerFeedbackRoute,
+  ManagerNgoRoute: ManagerNgoRoute,
+  ManagerOffersRoute: ManagerOffersRoute,
+  ManagerRestockRoute: ManagerRestockRoute,
+  ManagerWholesalersRoute: ManagerWholesalersRoute,
+}
+
+const ManagerRouteWithChildren =
+  ManagerRoute._addFileChildren(ManagerRouteChildren)
+
+interface StaffRouteChildren {
+  StaffDashboardRoute: typeof StaffDashboardRoute
+  StaffHomeRoute: typeof StaffHomeRoute
+  StaffRestockRoute: typeof StaffRestockRoute
+  StaffScanRoute: typeof StaffScanRoute
+}
+
+const StaffRouteChildren: StaffRouteChildren = {
+  StaffDashboardRoute: StaffDashboardRoute,
+  StaffHomeRoute: StaffHomeRoute,
+  StaffRestockRoute: StaffRestockRoute,
+  StaffScanRoute: StaffScanRoute,
+}
+
+const StaffRouteWithChildren = StaffRoute._addFileChildren(StaffRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CustomerRoute: CustomerRouteWithChildren,
+  ManagerRoute: ManagerRouteWithChildren,
+  StaffRoute: StaffRouteWithChildren,
+  AuthCustomerRoute: AuthCustomerRoute,
+  AuthManagerRoute: AuthManagerRoute,
+  AuthStaffRoute: AuthStaffRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
