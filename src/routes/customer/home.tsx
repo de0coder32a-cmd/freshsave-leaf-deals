@@ -5,5 +5,5 @@ import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/customer/home")({
   head: () => seo("Fresh deals", "Discounted near-expiry groceries near you."),
-  component: () => (<><PageTitle title="Fresh deals" /><OffersView withCart /></>),
+  component: () => (<><PageTitle title="Fresh deals" /><OffersView withCart withRecipes /></>),
 });

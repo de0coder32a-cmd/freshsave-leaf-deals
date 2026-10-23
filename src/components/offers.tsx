@@ -9,14 +9,17 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { useStore, type PricedProduct } from "@/lib/store";
 import { CATEGORIES } from "@/lib/mock-data";
 import { urgency } from "@/lib/pricing";
+import { ProductImage } from "@/components/product-image";
+import { recipeFor } from "@/lib/recipes";
+import { ChefHat, Clock } from "lucide-react";
 
 const urgencyClass = { safe: "bg-success text-success-foreground", warn: "bg-warning text-warning-foreground", danger: "bg-destructive text-destructive-foreground" };
 
 export function DealCard({ p, action }: { p: PricedProduct; action?: React.ReactNode }) {
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border bg-card transition-all hover:-translate-y-1 hover:shadow-soft">
-      <div className="relative grid h-32 place-items-center bg-primary-soft text-6xl">
-        <span className="transition-transform group-hover:scale-110">{p.emoji}</span>
+      <div className="relative h-40 overflow-hidden bg-primary-soft">
+        <ProductImage code={p.code} name={p.name} className="h-full w-full transition-transform group-hover:scale-105" />
         {p.discount > 0 && <span className="absolute left-3 top-3 rounded-full bg-gradient-fresh px-2.5 py-1 text-xs font-bold text-primary-foreground">-{p.discount}%</span>}
         <span className={`absolute right-3 top-3 rounded-full px-2.5 py-1 text-xs font-semibold ${urgencyClass[urgency(p.days)]}`}>
           {p.days <= 0 ? "Expires today" : `${p.days} day${p.days === 1 ? "" : "s"} left`}
@@ -53,7 +56,7 @@ function Cart() {
           {items.length === 0 && <p className="py-10 text-center text-muted-foreground">Your cart is empty 🌱</p>}
           {items.map((i) => (
             <div key={i.code} className="flex items-center gap-3 rounded-xl border p-3">
-              <span className="text-3xl">{i.p.emoji}</span>
+              <ProductImage code={i.p.code} name={i.p.name} className="h-12 w-12 rounded-lg" />
               <div className="flex-1"><p className="text-sm font-medium">{i.p.name}</p><p className="text-xs text-muted-foreground">{i.qty} × ₹{i.p.finalPrice}</p></div>
               <Button variant="ghost" size="icon" onClick={() => removeFromCart(i.code)} aria-label="Remove"><Trash2 /></Button>
             </div>
@@ -69,7 +72,40 @@ function Cart() {
   );
 }
 
-export function OffersView({ withCart, withExpiring }: { withCart?: boolean; withExpiring?: boolean }) {
+export function RecipesSection() {
+  const { products } = useStore();
+  const soon = products.filter((p) => p.days >= 0 && p.days <= 2 && p.stock > 0);
+  if (!soon.length) return null;
+  return (
+    <section className="rounded-2xl border bg-primary-soft/40 p-4">
+      <h2 className="mb-1 flex items-center gap-2 text-lg font-bold"><ChefHat className="h-5 w-5 text-primary" /> 15-minute recipes</h2>
+      <p className="mb-4 text-sm text-muted-foreground">Quick ideas to use up items expiring in the next 2 days.</p>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {soon.map((p) => {
+          const r = recipeFor(p.code, p.category);
+          return (
+            <article key={p.code} className="overflow-hidden rounded-xl border bg-card">
+              <div className="flex items-center gap-3 border-b p-3">
+                <ProductImage code={p.code} name={p.name} className="h-14 w-14 rounded-lg" />
+                <div className="flex-1">
+                  <h3 className="font-semibold leading-tight">{r.title}</h3>
+                  <p className="text-xs text-muted-foreground">Uses {p.name} · {p.days <= 0 ? "expires today" : `${p.days}d left`}</p>
+                </div>
+                <span className="flex items-center gap-1 rounded-full bg-secondary px-2 py-1 text-xs font-semibold"><Clock className="h-3 w-3" />15 min</span>
+              </div>
+              <div className="space-y-2 p-3 text-sm">
+                <p><span className="font-semibold">You need:</span> {r.ingredients.join(", ")}</p>
+                <ol className="list-decimal space-y-1 pl-5 text-muted-foreground">{r.steps.map((s) => <li key={s}>{s}</li>)}</ol>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+export function OffersView({ withCart, withExpiring, withRecipes }: { withCart?: boolean; withExpiring?: boolean; withRecipes?: boolean }) {
   const { products, addToCart } = useStore();
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("All");
@@ -86,7 +122,7 @@ export function OffersView({ withCart, withExpiring }: { withCart?: boolean; wit
           <div className="flex gap-3 overflow-x-auto pb-2">
             {expiring.map((p) => (
               <div key={p.code} className="flex min-w-60 items-center gap-3 rounded-xl border bg-card p-3">
-                <span className="text-3xl">{p.emoji}</span>
+                <ProductImage code={p.code} name={p.name} className="h-12 w-12 rounded-lg" />
                 <div className="flex-1"><p className="text-sm font-semibold">{p.name}</p><p className="text-xs text-muted-foreground">{p.days}d left · {p.stock} units</p></div>
                 <Button size="sm" variant="outline" asChild><Link to="/manager/ngo" search={{ code: p.code }}><HeartHandshake /> NGO</Link></Button>
               </div>
@@ -106,6 +142,7 @@ export function OffersView({ withCart, withExpiring }: { withCart?: boolean; wit
           <Button key={c} size="sm" variant={cat === c ? "default" : "outline"} className="rounded-full" onClick={() => setCat(c)}>{c}</Button>
         ))}
       </div>
+      {withRecipes && <RecipesSection />}
       {list.length === 0 ? (
         <p className="py-16 text-center text-muted-foreground">No deals match your search.</p>
       ) : (

@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { NGOS } from "@/lib/mock-data";
 import { useStore } from "@/lib/store";
 import { seo } from "@/lib/seo";
+import { ProductImage } from "@/components/product-image";
 
 export const Route = createFileRoute("/manager/ngo")({
   validateSearch: (s: { code?: unknown }): { code?: string } => (typeof s.code === "string" ? { code: s.code } : {}),
@@ -53,7 +54,7 @@ function Ngo() {
           <div className="space-y-4">
             <div className="space-y-2"><Label>Expiring product</Label>
               <Select value={code} onValueChange={setCode}><SelectTrigger><SelectValue placeholder="Select product" /></SelectTrigger>
-                <SelectContent>{eligible.map((p) => <SelectItem key={p.code} value={p.code}>{p.emoji} {p.name} · {p.days}d · {p.stock} units</SelectItem>)}</SelectContent></Select>
+                <SelectContent>{eligible.map((p) => <SelectItem key={p.code} value={p.code}>{p.name} · {p.days}d · {p.stock} units</SelectItem>)}</SelectContent></Select>
             </div>
             <div className="space-y-2"><Label>NGO</Label>
               <Select value={ngo} onValueChange={setNgo}><SelectTrigger><SelectValue placeholder="Select NGO" /></SelectTrigger>
@@ -71,7 +72,7 @@ function Ngo() {
               const p = products.find((pp) => pp.code === d.code);
               return (
                 <li key={d.id} className="flex flex-wrap items-center gap-3 rounded-xl border p-3">
-                  <span className="text-2xl">{p?.emoji}</span>
+                  {p && <ProductImage code={p.code} name={p.name} className="h-10 w-10 rounded-lg" />}
                   <div className="flex-1"><p className="text-sm font-semibold">{p?.name} × {d.qty}</p><p className="text-xs text-muted-foreground">{NGOS.find((n) => n.id === d.ngoId)?.name} · {d.date}</p></div>
                   <Badge variant={d.status === "Donated" ? "default" : "secondary"}>{d.status}</Badge>
                   {d.status !== "Donated" && <Button size="sm" variant="outline" onClick={() => { advanceDonation(d.id); toast.success(d.status === "Pending" ? "NGO accepted the request" : "Marked as picked up & donated"); }}>

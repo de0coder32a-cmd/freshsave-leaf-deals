@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useStore } from "@/lib/store";
 import { seo } from "@/lib/seo";
+import { ProductImage } from "@/components/product-image";
 
 export const Route = createFileRoute("/staff/scan")({
   head: () => seo("Scan barcode", "Scan a product to see expiry, stock and discount."),
@@ -68,7 +69,7 @@ function Scan() {
           {!p ? <p className="py-16 text-center text-muted-foreground">Scan a product to see its details</p> : (
             <div className="animate-rise">
               <div className="flex items-center gap-4">
-                <span className="grid h-20 w-20 place-items-center rounded-2xl bg-primary-soft text-5xl">{p.emoji}</span>
+                <ProductImage code={p.code} name={p.name} className="h-20 w-20 rounded-2xl" />
                 <div><h3 className="text-xl font-bold">{p.name}</h3><p className="text-sm text-muted-foreground">#{p.code} · {p.category}</p></div>
               </div>
               <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
