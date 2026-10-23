@@ -40,7 +40,13 @@ function Scan() {
       s.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 120 } }, (text) => { lookup(text); setCamOn(false); }, () => {})
         .catch(() => { toast.error("Camera unavailable — use manual entry"); setCamOn(false); });
     });
-    return () => { cancelled = true; scanner.current?.stop().catch(() => {}); scanner.current = null; };
+    return () => {
+      cancelled = true;
+      const s = scanner.current as ({ stop: () => Promise<void>; isScanning?: boolean } | null);
+      scanner.current = null;
+      if (!s) return;
+      try { if (s.isScanning !== false) Promise.resolve(s.stop()).catch(() => {}); } catch { /* scanner never started */ }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camOn]);
 
