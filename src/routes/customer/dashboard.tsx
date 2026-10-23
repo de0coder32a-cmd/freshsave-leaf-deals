@@ -21,7 +21,7 @@ function Dashboard() {
   const [msg, setMsg] = useState("");
   const total = points.reduce((t, p) => t + p.points, 0);
   const submit = () => {
-    if (!rating || !msg.trim()) return toast.error("Add a rating and a message");
+    if (!rating || !msg.trim()) { toast.error("Add a rating and a message"); return; }
     addFeedback({ name: session?.name ?? "Customer", rating, message: msg.trim() });
     setRating(0); setMsg("");
     toast.success("Thanks for your feedback! 🌿");

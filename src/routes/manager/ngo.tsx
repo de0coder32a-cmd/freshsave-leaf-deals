@@ -14,7 +14,7 @@ import { useStore } from "@/lib/store";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/manager/ngo")({
-  validateSearch: (s: Record<string, unknown>): { code?: string } => ({ code: typeof s.code === "string" ? s.code : undefined }),
+  validateSearch: (s: { code?: unknown }): { code?: string } => (typeof s.code === "string" ? { code: s.code } : {}),
   head: () => seo("NGO donations", "Send expiring products to partner NGOs before they go to waste."),
   component: Ngo,
 });
@@ -29,8 +29,8 @@ function Ngo() {
   const prod = products.find((p) => p.code === code);
 
   const send = () => {
-    if (!prod || !ngo) return toast.error("Choose a product and an NGO");
-    if (qty < 1 || qty > prod.stock) return toast.error(`Quantity must be 1–${prod.stock}`);
+    if (!prod || !ngo) { toast.error("Choose a product and an NGO"); return; }
+    if (qty < 1 || qty > prod.stock) { toast.error(`Quantity must be 1–${prod.stock}`); return; }
     requestDonation(ngo, code, qty);
     toast.success("Donation request sent");
   };

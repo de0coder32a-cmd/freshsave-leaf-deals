@@ -19,8 +19,8 @@ function StaffAuth() {
   const { login } = useStore();
   const navigate = useNavigate();
   const submit = () => {
-    if (!/^\d{5}$/.test(code)) return toast.error("Staff code must be exactly 5 digits");
-    if (!CODES[code]) return toast.error("Unknown staff code");
+    if (!/^\d{5}$/.test(code)) { toast.error("Staff code must be exactly 5 digits"); return; }
+    if (!CODES[code]) { toast.error("Unknown staff code"); return; }
     login({ role: "staff", name: CODES[code] });
     toast.success(`Welcome, ${CODES[code]}`);
     navigate({ to: "/staff/scan" });

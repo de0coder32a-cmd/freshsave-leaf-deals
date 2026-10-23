@@ -34,13 +34,13 @@ export function OtpFlow({ role, title, sub, nameLabel, redirect }: { role: "cust
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return toast.error("Please enter your name");
-    if (!/^\d{10}$/.test(mobile)) return toast.error("Enter a valid 10-digit mobile number");
+    if (!name.trim()) { toast.error("Please enter your name"); return; }
+    if (!/^\d{10}$/.test(mobile)) { toast.error("Enter a valid 10-digit mobile number"); return; }
     setBusy(true);
     setTimeout(() => { setBusy(false); setStep("otp"); toast.success(`OTP sent to +91 ${mobile}`); }, 600);
   };
   const verify = () => {
-    if (otp !== "123456") return toast.error("Incorrect OTP");
+    if (otp !== "123456") { toast.error("Incorrect OTP"); return; }
     login({ role, name: name.trim(), mobile });
     toast.success(role === "customer" ? "Registration complete!" : "Welcome back!");
     navigate({ to: redirect as "/" });

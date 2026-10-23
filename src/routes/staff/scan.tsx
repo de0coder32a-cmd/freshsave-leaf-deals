@@ -25,7 +25,7 @@ function Scan() {
 
   const lookup = (c: string) => {
     const p = products.find((pp) => pp.code === c.trim());
-    if (!p) { setFound(null); return toast.error("Product not found"); }
+    if (!p) { setFound(null); { toast.error("Product not found"); return; } }
     setFound(p.code); toast.success(`Scanned ${p.name}`);
   };
 

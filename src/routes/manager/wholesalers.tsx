@@ -12,7 +12,7 @@ import { useStore } from "@/lib/store";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/manager/wholesalers")({
-  validateSearch: (s: Record<string, unknown>): { code?: string } => ({ code: typeof s.code === "string" ? s.code : undefined }),
+  validateSearch: (s: { code?: unknown }): { code?: string } => (typeof s.code === "string" ? { code: s.code } : {}),
   head: () => seo("Wholesalers", "Send restock requests to wholesale suppliers."),
   component: Wholesalers,
 });
@@ -28,7 +28,7 @@ function Wholesalers() {
 
   const send = () => {
     const list = Object.entries(qtys).filter(([c, q]) => q > 0 && items.some((i) => i.code === c)).map(([c, q]) => ({ code: c, qty: q }));
-    if (!sel || !list.length) return toast.error("Pick a wholesaler and at least one product quantity");
+    if (!sel || !list.length) { toast.error("Pick a wholesaler and at least one product quantity"); return; }
     requestRestock(sel.id, list);
     setQtys({});
     toast.success(`Restock request sent to ${sel.name}`);
