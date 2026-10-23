@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { WHOLESALERS } from "@/lib/mock-data";
 import { useStore } from "@/lib/store";
 import { seo } from "@/lib/seo";
+import { ProductImage } from "@/components/product-image";
 
 export const Route = createFileRoute("/manager/wholesalers")({
   validateSearch: (s: { code?: unknown }): { code?: string } => (typeof s.code === "string" ? { code: s.code } : {}),
@@ -51,7 +52,7 @@ function Wholesalers() {
           <div className="grid gap-2 sm:grid-cols-2">
             {items.map((p) => (
               <div key={p.code} className="flex items-center gap-3 rounded-xl border p-2">
-                <span className="text-2xl">{p.emoji}</span>
+                <ProductImage code={p.code} name={p.name} className="h-10 w-10 rounded-lg" />
                 <div className="flex-1"><p className="text-sm font-medium">{p.name}</p><p className="text-xs text-muted-foreground">Stock {p.stock}</p></div>
                 <Input type="number" min={0} className="w-20" value={qtys[p.code] ?? ""} placeholder="0" onChange={(e) => setQtys({ ...qtys, [p.code]: Number(e.target.value) })} />
               </div>

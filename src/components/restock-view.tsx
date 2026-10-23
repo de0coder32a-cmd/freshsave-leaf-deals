@@ -27,7 +27,7 @@ export function RestockView({ manager }: { manager?: boolean }) {
               const low = p.stock < SETTINGS.lowStock;
               return (
                 <TableRow key={p.code}>
-                  <TableCell className="font-medium">{p.emoji} {p.name}</TableCell>
+                  <TableCell className="font-medium">{p.name}</TableCell>
                   <TableCell className="text-muted-foreground">{p.code}</TableCell>
                   <TableCell>{p.stock} {low && <Badge variant="destructive" className="ml-2">Low</Badge>}</TableCell>
                   {manager && <TableCell className="text-right">{low && <Button size="sm" asChild><Link to="/manager/wholesalers" search={{ code: p.code }}>Request restock</Link></Button>}</TableCell>}
